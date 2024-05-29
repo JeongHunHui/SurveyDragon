@@ -1,80 +1,107 @@
 package org.tukorea.surveydragon.test;
 
+import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
+
+import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
-import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.logging.LoggerFactory;
+
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.tukorea.surveydragon.domain.MemberVO;
 import org.tukorea.surveydragon.domain.SurveyVO;
 import org.tukorea.surveydragon.persistence.MemberDAO;
 import org.tukorea.surveydragon.persistence.SurveyDAO;
+import org.tukorea.surveydragon.service.MemberServiceImpl;
+import org.tukorea.surveydragon.service.SurveyServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml" })
 public class UnitTest {
 
-	@Autowired
-	private MemberDAO dao;
-    @Autowired
-    private SurveyDAO surveyDAO;
+	@InjectMocks
+	private MemberServiceImpl memberService;
 
-	private static final Logger logger = (Logger) LoggerFactory.getLogger(UnitTest.class);
+	@InjectMocks
+	private SurveyServiceImpl surveyService;
 
-	// 1. id로 member 조회 테스트
+	@Mock
+	private MemberDAO memberDAO;
+
+	@Mock
+	private SurveyDAO surveyDAO;
+
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+	}
+
 	@Test
 	public void testReadById() throws Exception {
-		addTestData();
-		MemberVO vo = dao.read("1");
-		logger.info(vo.toString());
-		deleteTestData();
+		// Given
+		MemberVO member = new MemberVO("1", "홍길동", "hong.gildong@example.com", "password123");
+		when(memberDAO.read("1")).thenReturn(member);
+
+		// When
+		MemberVO result = memberService.readMember("1");
+
+		// Then
+		assertEquals("1", result.getId());
+		assertEquals("홍길동", result.getName());
+		verify(memberDAO, times(1)).read("1");
 	}
 
-	// 2. id로 member 목록 조회 테스트
 	@Test
-	public void testReadList() throws Exception {
-		addTestData();
-		List<MemberVO> voList = dao.readList();
-		for(MemberVO vo : voList) {
-			logger.info(vo.toString());
-		}
-		deleteTestData();
+	public void testReadSurveyList() throws Exception {
+		// Given
+		SurveyVO survey1 = new SurveyVO("1", "설문조사 1", "목적 1", "2024-12-31", "기프트 카드", "100", "1", "http://example.com/survey1");
+		SurveyVO survey2 = new SurveyVO("2", "설문조사 2", "목적 2", "2024-11-30", "쿠폰", "50", "1", "http://example.com/survey2");
+		when(surveyDAO.readList()).thenReturn(Arrays.asList(survey1, survey2));
+
+		// When
+		List<SurveyVO> result = surveyService.readSurveyList();
+
+		// Then
+		assertEquals(2, result.size());
+		assertEquals("설문조사 1", result.get(0).getTitle());
+		verify(surveyDAO, times(1)).readList();
 	}
 
-	// 3. id로 member 수정 테스트
 	@Test
 	public void testModify() throws Exception {
-		addTestData();
-		MemberVO vo = dao.read("1");
-		logger.info(vo.toString());
-		vo.setName("modifiedName");
-		dao.update(vo);
-		MemberVO vo2 = dao.read("1");
-		logger.info(vo2.toString());
-		deleteTestData();
+		// Given
+		MemberVO member = new MemberVO("1", "홍길동", "hong.gildong@example.com", "password123");
+		when(memberDAO.read("1")).thenReturn(member);
+
+		// When
+		member.setName("수정된 이름");
+		memberService.updateMember(member);
+		when(memberDAO.read("1")).thenReturn(member);
+
+		// Then
+		MemberVO result = memberService.readMember("1");
+		assertEquals("수정된 이름", result.getName());
+		verify(memberDAO, times(1)).update(member);
 	}
 
-    // 4. id로 survey 조회 테스트
-    @Test
-    public void testSurveyRead() throws Exception {
-        SurveyVO vo = new SurveyVO("1", "test", "test", "test", "test", "test", "1", "test");
-        surveyDAO.add(vo);
+	@Test
+	public void testSurveyRead() throws Exception {
+		// Given
+		SurveyVO survey = new SurveyVO("1", "설문조사 1", "목적 1", "2024-12-31", "기프트 카드", "100", "1", "http://example.com/survey1");
+		when(surveyDAO.read("1")).thenReturn(survey);
 
-        SurveyVO vo2 = surveyDAO.read("1");
-        logger.info(vo2.toString());
+		// When
+		SurveyVO result = surveyService.readSurvey("1");
 
-        surveyDAO.delete("1");
-    }
-
-	private void addTestData() throws Exception {
-        MemberVO vo = new MemberVO("1", "test", "test", "test");
-		dao.add(vo);
-	}
-
-	private void deleteTestData() throws Exception {
-		dao.delete("1");
+		// Then
+		assertEquals("1", result.getId());
+		assertEquals("설문조사 1", result.getTitle());
+		verify(surveyDAO, times(1)).read("1");
 	}
 }
