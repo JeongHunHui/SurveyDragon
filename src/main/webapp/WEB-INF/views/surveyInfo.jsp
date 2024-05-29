@@ -147,6 +147,7 @@
         <p><strong>&#128197; 마감 일자:</strong> ${survey.endDate}</p>
         <p><strong>&#127873; 리워드 품목:</strong> ${survey.reward}</p>
         <p><strong>&#128176; 리워드 개수:</strong> ${survey.rewardCount}</p>
+        <p><strong>&#128279; 설문 링크:</strong> <a href="${survey.url}">${survey.url}</a></p>
     </div>
 </div>
 

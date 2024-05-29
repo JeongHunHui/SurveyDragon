@@ -10,4 +10,5 @@ public interface SurveyService {
 	void addSurvey(SurveyVO survey) throws Exception;
 	void deleteSurvey(String id) throws Exception;
 	void updateSurvey(SurveyVO survey) throws Exception;
+	List<SurveyVO> getSurveysByUserId(String id);
 }

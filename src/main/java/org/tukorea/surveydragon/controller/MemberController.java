@@ -3,6 +3,7 @@ package org.tukorea.surveydragon.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.tukorea.surveydragon.domain.LoginDto;
@@ -34,6 +35,17 @@ public class MemberController {
 		return "redirect:/";
 	}
 
+	@GetMapping("/mypage")
+	public String mypage(HttpServletRequest request, Model model) throws Exception {
+		model.addAttribute("member", memberService.readMember((String) request.getSession().getAttribute("id")));
+		return "mypage";
+	}
+
+	@GetMapping("/edit")
+	public String editInfoPage() throws Exception {
+		return "editInfo";
+	}
+
 	@PostMapping("/login")
 	public String login(@ModelAttribute LoginDto dto, HttpServletRequest request) throws Exception {
 		try{
@@ -41,6 +53,7 @@ public class MemberController {
 			HttpSession session = request.getSession();
 			session.setAttribute("user_email", memberVO.getEmail());
 			session.setAttribute("user_name", memberVO.getName());
+			session.setAttribute("id", memberVO.getId());
 		} catch (Exception e) {
 			return "login";
 		}
@@ -51,5 +64,12 @@ public class MemberController {
 	public String signup(@ModelAttribute MemberVO vo) throws Exception {
 		memberService.addMember(vo);
 		return "login";
+	}
+
+	@PostMapping("/update")
+	public String mypage(HttpServletRequest request, @ModelAttribute MemberVO memberVO) throws Exception {
+		memberVO.setId((String) request.getSession().getAttribute("id"));
+		memberService.updateMember(memberVO);
+		return "redirect:/member/mypage";
 	}
 }

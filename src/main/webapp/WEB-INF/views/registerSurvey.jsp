@@ -83,6 +83,9 @@
   <label for="rewardCount">리워드 개수</label>
   <input type="text" id="rewardCount" name="rewardCount" required><br>
 
+  <label for="url">설문 링크</label>
+  <input type="text" id="url" name="url" required><br>
+
   <button type="submit">설문 등록</button>
 </form>
 </body>

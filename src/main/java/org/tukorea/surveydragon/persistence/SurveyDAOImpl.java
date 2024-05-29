@@ -35,7 +35,11 @@ public class SurveyDAOImpl implements SurveyDAO {
 		sqlSession.delete(namespace + ".delete", id);
 	}
 
-	public void update(SurveyVO student) throws Exception {
-	    sqlSession.update(namespace + ".update", student);
+	public void update(SurveyVO survey) throws Exception {
+	    sqlSession.update(namespace + ".update", survey);
+	}
+
+	public List<SurveyVO> getSurveysByUserId(String memberId) {
+		return sqlSession.selectList(namespace + ".selectByUserId", memberId);
 	}
 }

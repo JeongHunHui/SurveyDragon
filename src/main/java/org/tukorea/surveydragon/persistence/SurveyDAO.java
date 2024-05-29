@@ -11,5 +11,5 @@ public interface SurveyDAO {
 	SurveyVO read(String id) throws Exception;
 	void delete(String id) throws Exception;
 	void update(SurveyVO survey) throws Exception;
-
+	List<SurveyVO> getSurveysByUserId(String id);
 }

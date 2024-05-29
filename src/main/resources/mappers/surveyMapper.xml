@@ -6,8 +6,8 @@
 
 <mapper namespace="org.tukorea.surveydragon.mapper.SurveyMapper">
      <insert id="insert"> 
-   		insert into survey (id, title, purpose, endDate, reward, rewardCount) values
- 		(#{id}, #{title}, #{purpose}, #{endDate}, #{reward}, #{rewardCount})
+   		insert into survey (id, title, purpose, endDate, reward, rewardCount, memberId, url) values
+ 		(#{id}, #{title}, #{purpose}, #{endDate}, #{reward}, #{rewardCount}, #{memberId}, #{url})
      </insert> 
  	
      <select id="selectByid" resultType="org.tukorea.surveydragon.domain.SurveyVO">
@@ -22,13 +22,17 @@
  	
      <update id="update">
 	 	update survey set id =#{id}, title =#{title}, purpose =#{purpose},
-                      endDate =#{endDate}, reward =#{reward}, rewardCount =#{rewardCount}
+                      endDate =#{endDate}, reward =#{reward}, rewardCount =#{rewardCount}, memberId =#{memberId}, url =#{url}
 		 where id = #{id}
     </update>
  
     <delete id="delete">
 		delete from survey where id = #{id}
     </delete>
+
+  <select id="selectByUserId" resultType="org.tukorea.surveydragon.domain.SurveyVO">
+    SELECT * FROM survey WHERE memberId = #{memberId}
+  </select>
 	
 </mapper>  
 

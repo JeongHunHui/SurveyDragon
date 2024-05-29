@@ -32,4 +32,8 @@ public class SurveyServiceImpl implements SurveyService {
 		surveyDAO.update(survey);
 	}
 
+	public List<SurveyVO> getSurveysByUserId(String id) {
+		return surveyDAO.getSurveysByUserId(id);
+	}
+
 }

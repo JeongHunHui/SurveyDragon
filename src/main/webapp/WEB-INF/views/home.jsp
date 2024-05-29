@@ -23,6 +23,7 @@
 						}
 					</script>
 					<a href="/survey/register" class="button">&#128221; 설문 등록하기</a>
+					<a href="/member/mypage" class="button">&#128100; 마이페이지</a>
 				</c:when>
 				<c:otherwise>
 					<a href="/member/login" class="button">&#128273; 로그인</a>

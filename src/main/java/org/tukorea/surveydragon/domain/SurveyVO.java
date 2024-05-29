@@ -16,4 +16,6 @@ public class SurveyVO {
 	private String endDate;
 	private String reward;
 	private String rewardCount;
+	private String memberId;
+	private String url;
 }
