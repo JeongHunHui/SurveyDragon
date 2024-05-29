@@ -1,0 +1,132 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #495057;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  width: 80%;
+  margin: auto;
+}
+.header {
+  background-color: #282c34; /* 어두운 톤의 배경색 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+  padding: 10px 20px; /* 패딩 조정 */
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.section-title {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section-title h3 {
+  color: #343a40;
+  font-size: 22px;
+  margin: 0;
+}
+
+.header > h2 {
+  margin-left: 20px;
+  font-size: 24px; /* 글꼴 크기 조정 */
+  color: #ffffff; /* 글꼴 색상 흰색으로 변경 */
+}
+
+.header > h2:hover {
+  color: #4d9fec; /* 마우스 오버 시 색상 변경 */
+}
+
+.header-buttons .button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  margin-left: 10px; /* 왼쪽 여백 추가 */
+  margin-right: 10px; /* 오른쪽 여백 추가 */
+}
+
+.header-buttons .button:hover {
+  background-color: #45a049;
+}
+
+.survey-info {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+  background: #fff;
+  padding: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  display: flex; /* Flexbox 레이아웃 사용 */
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: space-between; /* 요소들을 양 끝으로 정렬 */
+}
+.survey-info > * {
+  margin-right: 10px; /* 오른쪽 여백 추가 */
+}
+.survey-info:last-child {
+  border-bottom: none;
+}
+.survey-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+.survey-detail {
+  font-size: 14px;
+  color: #666;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 16px;
+}
+.pagination a, .pagination span {
+  margin: 0 10px;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+.pagination a {
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+}
+.pagination a:hover {
+  background-color: #45a049;
+}
+.pagination span {
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  padding: 8px 15px;
+  border-radius: 5px;
+  min-width: 50px; /* 현재 페이지 번호 박스의 고정된 너비 */
+  text-align: center;
+}
+.pagination-link, .empty-space {
+  min-width: 100px;
+  display: inline-block;
+  text-align: center;
+}
+.empty-space {
+  visibility: hidden; /* 빈 공간 숨기기 */
+}
+.detail-button {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}
+.detail-button:hover {
+  background-color: #45a049;
+}
