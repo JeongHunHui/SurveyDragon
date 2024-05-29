@@ -84,6 +84,7 @@
 
     <label for="url">설문 링크:</label>
     <input type="text" id="url" name="url" value="${survey.url}" required><br>
+    <button type="submit" onclick="handleUpdate()">수정하기</button>
 </form>
 </body>
 </html>

@@ -102,7 +102,6 @@
         </c:forEach>
         </tbody>
     </table>
-    <button onclick="location.href='/survey/create'">새 설문 만들기</button>
 </div>
 </body>
 </html>
